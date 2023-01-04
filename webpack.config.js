@@ -6,6 +6,8 @@ module.exports = {
 	entry: {
     	index: './src/index.js',
 		todo: './src/todo.js',
+		project: './src/project.js',
+		dom: './src/dom.js',
 	},
 	module: {
 	rules: [
