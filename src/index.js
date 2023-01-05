@@ -1,6 +1,7 @@
 import Project from "./project";
 import Todo from "./todo";
 import { renderProject } from "./dom";
+import './style.css'
 
 const myProject = Project("default");
 myProject.addTodo(Todo("lol", "this has to be the best compound...", "18/12", 2));

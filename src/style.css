@@ -1,0 +1,63 @@
+.todo {
+	border: 2px solid black;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	padding: 4px 12px;
+	transition: 0.25s;
+}
+
+.todo > h2 {
+	margin-right: auto;
+}
+
+.todo.opened-todo {
+	display: block;
+}
+
+.todo.completed {
+	background-color: rgb(0, 220, 0);
+}
+
+.todo.completed.opened-todo {
+	background-color: rgb(0, 170, 0);
+}
+
+.todo > .due-date {
+	font-size: 1.8rem;
+	font-weight: bold;
+}
+
+.todo > img {
+	width: 50px;
+}
+
+.low-prio {
+	background-color: yellow;
+}
+
+.low-prio.opened-todo {
+	background-color: rgb(223, 223, 0);
+}
+
+.med-prio {
+	background-color: orange;
+}
+
+.med-prio.opened-todo {
+	background-color: rgb(218, 141, 0);
+}
+
+.high-prio {
+	background-color: red;
+}
+
+.high-prio.opened-todo {
+	background-color: rgb(223, 0, 0);
+}
+
+.project {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
