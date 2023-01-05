@@ -10,6 +10,9 @@
 .todo > h2 {
 	margin-right: auto;
 }
+.todo > img {
+	vertical-align: middle;
+}
 
 .todo.opened-todo {
 	display: block;
@@ -26,10 +29,16 @@
 .todo > .due-date {
 	font-size: 1.8rem;
 	font-weight: bold;
+	margin-right: 20px;
 }
 
-.todo > img {
+.todo > .checkbox-button {
 	width: 50px;
+	margin-right: 10px;
+}
+
+.todo > .delete-button {
+	width: 40px;
 }
 
 .low-prio {

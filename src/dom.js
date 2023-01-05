@@ -15,6 +15,7 @@ function renderTodo(todo) {
 	dueDate.classList.add("due-date");
 	const checkbox = document.createElement("img");
 	checkbox.src = emptyCheckboxIcon;
+	checkbox.classList.add("checkbox-button");
 	checkbox.addEventListener("click", (event) => {
 		event.stopPropagation();
 		container.classList.toggle("completed");
@@ -27,6 +28,7 @@ function renderTodo(todo) {
 	
 	const deleteButton = document.createElement("img");
 	deleteButton.src = trashIcon;
+	deleteButton.classList.add("delete-button");
 	container.appendChild(title);
 	container.appendChild(dueDate);
 	container.appendChild(description);
@@ -61,6 +63,12 @@ export function renderProject(project) {
 	project.todos.forEach(element => {
 		const todoDOMElement = renderTodo(element);
 		container.appendChild(todoDOMElement);
+		const deleteButton = todoDOMElement.lastChild;
+		deleteButton.addEventListener("click", () => {
+			project.removeTodo(element);
+			todoDOMElement.remove();
+		});
 	});
+
 	return container;
 }
