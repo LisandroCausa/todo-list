@@ -60,16 +60,22 @@ function renderTodo(todo) {
 
 export function renderProject(project) {
 	const container = document.createElement("div");
-	container.classList.add("project");
+	container.classList.add("project-section");
+	const projectTitle = document.createElement("h1");
+	projectTitle.textContent = project.name;
+	projectTitle.classList.add("project-title");
+	container.appendChild(projectTitle);
+	const todosContainer = document.createElement("div");
+	todosContainer.classList.add("todos-container");
 	project.todos.forEach(element => {
 		const todoDOMElement = renderTodo(element);
-		container.appendChild(todoDOMElement);
+		todosContainer.appendChild(todoDOMElement);
 		const deleteButton = todoDOMElement.lastChild;
 		deleteButton.addEventListener("click", () => {
 			project.removeTodo(element);
 			todoDOMElement.remove();
 		});
 	});
-
+	container.appendChild(todosContainer);
 	return container;
 }

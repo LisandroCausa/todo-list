@@ -65,8 +65,12 @@
 	background-color: rgb(223, 0, 0);
 }
 
-.project {
+.todos-container {
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
+}
+
+.project-title {
+	font-size: 2.25rem;
 }
