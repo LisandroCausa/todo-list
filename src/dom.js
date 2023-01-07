@@ -11,7 +11,8 @@ function renderTodo(todo) {
 	description.textContent = todo.description;
 	description.style.display = "none";
 	const dueDate = document.createElement("p");
-	dueDate.textContent = todo.dueDate;
+	const dateFormatOptions = { day: "numeric", month: "numeric" };
+	dueDate.textContent = todo.dueDate.toLocaleDateString("en-GB", dateFormatOptions);
 	dueDate.classList.add("due-date");
 	const checkbox = document.createElement("img");
 	checkbox.src = emptyCheckboxIcon;
