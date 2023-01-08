@@ -5,7 +5,7 @@ import trashIcon from './img/trash.svg';
 
 function renderTodo(todo) {
 	const container = document.createElement("div");
-	const title = document.createElement("h2");
+	const title = document.createElement("h3");
 	title.textContent = todo.title;
 	const description = document.createElement("p");
 	description.textContent = todo.description;
@@ -78,4 +78,45 @@ export function renderProject(project) {
 	});
 	container.appendChild(todosContainer);
 	return container;
+}
+
+export function renderSidebar(projects) {
+	const container = document.createElement("div");
+	container.id = "sidebar";
+	const projectHeader = document.createElement("h2");
+	projectHeader.textContent = "Projects";
+	container.appendChild(projectHeader);
+	const projectContainer = document.createElement("div");
+	projectContainer.id = "projects-container";
+	projects.forEach(project => {
+		projectContainer.appendChild(projectButton(project));
+	});
+	container.appendChild(projectContainer);
+	return container;
+}
+
+function projectButton(project) {
+	const container = document.createElement("div");
+	container.textContent = project.name;
+	container.classList.add("project-sidebar-btn");
+	container.addEventListener("click", () => {
+		if(container.classList.contains("opened-project") == false)
+		{
+			const projectsContainer = document.getElementById("projects-container");
+			const openedClassName = "opened-project";
+			removeClassChildren(projectsContainer, openedClassName);
+			container.classList.add(openedClassName);
+			document.body.removeChild(document.body.lastChild);
+			document.body.appendChild(renderProject(project));
+		}
+	});
+	return container;
+}
+
+function removeClassChildren(parent, className) {
+	const children = parent.children;
+	for (const element of children)
+	{
+		element.classList.remove(className);
+	}
 }

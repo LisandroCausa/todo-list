@@ -1,3 +1,29 @@
+body {
+	margin: 0;
+	height: 100vh;
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+}
+
+#sidebar {
+	background-color: gray;
+	padding: 0 12px;
+}
+
+#projects-container {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.project-sidebar-btn {
+	padding: 12px;
+	font-size: 1.25rem;
+	border: 2px solid black;
+	border-radius: 12px;
+	background-color: rgb(179, 179, 179);
+}
+
 .todo {
 	border: 2px solid black;
 	display: flex;
@@ -7,7 +33,7 @@
 	transition: 0.25s;
 }
 
-.todo > h2 {
+.todo > h3 {
 	margin-right: auto;
 }
 .todo > img {
