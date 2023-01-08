@@ -36,6 +36,11 @@ function renderTodo(todo) {
 	container.appendChild(checkbox);
 	container.appendChild(deleteButton);
 	container.classList.add("todo");
+	if(todo.completed)
+	{
+		container.classList.add("completed");
+	}
+
 	if(todo.priority == 1)
 	{
 		container.classList.add("low-prio");
