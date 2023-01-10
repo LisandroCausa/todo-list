@@ -100,3 +100,23 @@ body {
 .project-title {
 	font-size: 2.25rem;
 }
+
+#overlay-background {
+	position: fixed;
+	background-color: rgba(34, 34, 34, 0.671);
+	width: 100%;
+	height: 100%;
+}
+
+.new-todo-window {
+/*	position: relative;*/
+	padding: 12px;
+	background-color: rebeccapurple;
+	margin: 30vh auto;
+	width: fit-content;
+}
+
+.form-field-section {
+	display: flex;
+	flex-direction: column;
+}

@@ -7,6 +7,7 @@ module.exports = {
     	index: './src/index.js',
 		todo: './src/todo.js',
 		project: './src/project.js',
+		projectsModule: './src/projectsModule.js',
 		dom: './src/dom.js',
 	},
 	module: {
