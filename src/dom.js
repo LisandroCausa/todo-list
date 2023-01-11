@@ -107,12 +107,11 @@ function projectButton(project) {
 	const container = document.createElement("div");
 	container.textContent = project.name;
 	container.classList.add("project-sidebar-btn");
+	const openedClassName = "opened-project";
 	container.addEventListener("click", () => {
-		if(container.classList.contains("opened-project") == false)
+		if(container.classList.contains(openedClassName) == false)
 		{
-			const projectsContainer = document.getElementById("projects-container");
-			const openedClassName = "opened-project";
-			removeClassChildren(projectsContainer, openedClassName);
+			removeClassChildren(container.parentNode, openedClassName);
 			container.classList.add(openedClassName);
 			document.body.removeChild(document.getElementById("project-section"));
 			document.body.appendChild(renderProject(project));
@@ -144,8 +143,10 @@ function renderNewTodoOverlay() {
 	const window = document.createElement("div");
 	window.classList.add("new-todo-window");
 
+	const sectionsClassName = "form-field-section";
+
 	const nameSection = document.createElement("div");
-	nameSection.classList.add("form-field-section");
+	nameSection.classList.add(sectionsClassName);
 	const nameLabel = document.createElement("label");
 	nameLabel.htmlFor = "name";
 	nameLabel.textContent = "Name";
@@ -156,7 +157,7 @@ function renderNewTodoOverlay() {
 	nameSection.appendChild(nameField);
 
 	const descriptionSection = document.createElement("div");
-	descriptionSection.classList.add("form-field-section");
+	descriptionSection.classList.add(sectionsClassName);
 	const descriptionLabel = document.createElement("label");
 	descriptionLabel.htmlFor = "description";
 	descriptionLabel.textContent = "Description";
@@ -166,7 +167,7 @@ function renderNewTodoOverlay() {
 	descriptionSection.appendChild(descriptionField);
 
 	const dueDateSection = document.createElement("div");
-	dueDateSection.classList.add("form-field-section");
+	dueDateSection.classList.add(sectionsClassName);
 	const dueDateLabel = document.createElement("label");
 	dueDateLabel.htmlFor = "due-date";
 	dueDateLabel.textContent = "Due date";
@@ -177,11 +178,27 @@ function renderNewTodoOverlay() {
 	dueDateSection.appendChild(dueDateLabel);
 	dueDateSection.appendChild(dueDateField);
 
+	const prioritySection = document.createElement("div");
+	prioritySection.classList.add(sectionsClassName);
+	const priorityLabel = document.createElement("label");
+	priorityLabel.textContent = "Priority";
+
+	const priorityButtonsContainer = document.createElement("div");
+	priorityButtonsContainer.id = "priority-buttons-container";
+	const lowButton = renderPriorityButton("Low");
+	const medButton = renderPriorityButton("Med");
+	medButton.classList.add("selected-priority");
+	const highButton = renderPriorityButton("High");
+	priorityButtonsContainer.appendChild(lowButton);
+	priorityButtonsContainer.appendChild(medButton);
+	priorityButtonsContainer.appendChild(highButton);
+
 	const okButton = renderFormOkButton();
 	
 	window.appendChild(nameSection);
 	window.appendChild(descriptionSection);
 	window.appendChild(dueDateSection);
+	window.appendChild(priorityButtonsContainer);
 	window.appendChild(okButton);
 	container.appendChild(window);
 	return container;
@@ -206,8 +223,19 @@ function renderFormOkButton() {
 		const name = document.getElementById("name").value;
 		const description = document.getElementById("description").value;
 		const dueDateInput = document.getElementById("due-date").valueAsDate;
-		const dueDate = new Date(dueDateInput);
-		const todo = Todo(name, description, dueDate, 1);
+		const dueDate = new Date();
+		dueDate.setHours(0, 0, 0);
+		dueDate.setDate(dueDateInput.getUTCDate());
+		dueDate.setMonth(dueDateInput.getUTCMonth());
+
+		const prioButtons = document.getElementById("priority-buttons-container").children;
+		let priority = 1;
+		while((prioButtons[priority-1].classList.contains("selected-priority") == false) && priority < 10)
+		{
+			priority++;
+		}
+
+		const todo = Todo(name, description, dueDate, priority);
 		console.log(todo);
 		Projects.currentProject.addTodo(todo);
 		document.body.removeChild(document.getElementById("project-section"));
@@ -216,4 +244,19 @@ function renderFormOkButton() {
 		overlay.remove();
 	});
 	return button;
+}
+
+function renderPriorityButton(name) {
+	const btn = document.createElement("button");
+	btn.classList.add("priority-btn");
+	btn.textContent = name;
+	const selectedClassName = "selected-priority";
+	btn.addEventListener("click", () => {
+		if(btn.classList.contains(selectedClassName) == false)
+		{
+			removeClassChildren(btn.parentNode, selectedClassName);
+			btn.classList.add(selectedClassName);
+		}
+	});
+	return btn;
 }

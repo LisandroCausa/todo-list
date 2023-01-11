@@ -1,3 +1,9 @@
+:root {
+	--low-prio-color: yellow;
+	--med-prio-color: orange;
+	--high-prio-color: red;
+}
+
 body {
 	margin: 0;
 	height: 100vh;
@@ -68,7 +74,7 @@ body {
 }
 
 .low-prio {
-	background-color: yellow;
+	background-color: var(--low-prio-color);
 }
 
 .low-prio.opened-todo {
@@ -76,7 +82,7 @@ body {
 }
 
 .med-prio {
-	background-color: orange;
+	background-color: var(--med-prio-color);
 }
 
 .med-prio.opened-todo {
@@ -84,7 +90,7 @@ body {
 }
 
 .high-prio {
-	background-color: red;
+	background-color: var(--high-prio-color);
 }
 
 .high-prio.opened-todo {
@@ -119,4 +125,20 @@ body {
 .form-field-section {
 	display: flex;
 	flex-direction: column;
+}
+
+#priority-buttons-container > :nth-child(1) {
+	background-color: var(--low-prio-color);
+}
+
+#priority-buttons-container > :nth-child(2) {
+	background-color: var(--med-prio-color);
+}
+
+#priority-buttons-container > :nth-child(3) {
+	background-color: var(--high-prio-color);
+}
+
+.priority-btn.selected-priority {
+	border-color: white;
 }
