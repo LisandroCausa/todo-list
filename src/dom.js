@@ -182,7 +182,7 @@ function renderNewTodoOverlay() {
 	prioritySection.classList.add(sectionsClassName);
 	const priorityLabel = document.createElement("label");
 	priorityLabel.textContent = "Priority";
-
+	prioritySection.appendChild(priorityLabel);
 	const priorityButtonsContainer = document.createElement("div");
 	priorityButtonsContainer.id = "priority-buttons-container";
 	const lowButton = renderPriorityButton("Low");
@@ -192,13 +192,14 @@ function renderNewTodoOverlay() {
 	priorityButtonsContainer.appendChild(lowButton);
 	priorityButtonsContainer.appendChild(medButton);
 	priorityButtonsContainer.appendChild(highButton);
+	prioritySection.appendChild(priorityButtonsContainer);
 
 	const okButton = renderFormOkButton();
 	
 	window.appendChild(nameSection);
 	window.appendChild(descriptionSection);
 	window.appendChild(dueDateSection);
-	window.appendChild(priorityButtonsContainer);
+	window.appendChild(prioritySection);
 	window.appendChild(okButton);
 	container.appendChild(window);
 	return container;
@@ -218,6 +219,7 @@ function renderOverlayBackground() {
 
 function renderFormOkButton() {
 	const button = document.createElement("button");
+	button.id = "ok-button";
 	button.textContent = "OK";
 	button.addEventListener("click", () => {
 		const name = document.getElementById("name").value;
@@ -227,6 +229,7 @@ function renderFormOkButton() {
 		dueDate.setHours(0, 0, 0);
 		dueDate.setDate(dueDateInput.getUTCDate());
 		dueDate.setMonth(dueDateInput.getUTCMonth());
+		dueDate.setFullYear(dueDateInput.getUTCFullYear());
 
 		const prioButtons = document.getElementById("priority-buttons-container").children;
 		let priority = 1;
