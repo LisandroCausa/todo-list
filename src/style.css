@@ -171,7 +171,6 @@ body {
 }
 
 .new-todo-window {
-/*	position: relative;*/
 	padding: 12px;
 	background-color: rebeccapurple;
 	margin: 25vh auto;
@@ -259,4 +258,14 @@ body {
 	background-color: rgb(110, 110, 110);
 	color: white;
 	border-style: dotted;
+}
+
+#new-project-btn {
+	text-align: center;
+	font-weight: bold;
+	background-color: rgb(200, 200, 200);
+}
+
+#new-project-btn:hover {
+	background-color: rgb(143, 173, 136);
 }

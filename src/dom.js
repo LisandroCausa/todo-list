@@ -3,6 +3,7 @@ import checkedCheckboxIcon from './img/checkbox-checked.svg';
 import trashIcon from './img/trash.svg';
 import Todo from './todo';
 import Projects from './projectsModule';
+import Project from './project';
 
 function renderTodo(todo) {
 	const container = document.createElement("div");
@@ -98,16 +99,22 @@ export function renderSidebar() {
 	const projectHeader = document.createElement("h2");
 	projectHeader.textContent = "Projects";
 	container.appendChild(projectHeader);
-	const projectContainer = document.createElement("div");
-	projectContainer.id = "projects-container";
+	container.appendChild(renderSidebarProjectsContainer());
+	return container;
+}
+
+function renderSidebarProjectsContainer() {
+	const container = document.createElement("div");
+	container.id = "projects-container";
 	Projects.array.forEach(project => {
-		projectContainer.appendChild(projectButton(project));
+		container.appendChild(projectButton(project));
 	});
-	if(projectContainer.children.length > 0)
+	const currentIndex = Projects.array.indexOf(Projects.currentProject);
+	if(currentIndex > -1)
 	{
-		projectContainer.children[0].classList.add("opened-project");
+		container.children[currentIndex].classList.add("opened-project");
 	}
-	container.appendChild(projectContainer);
+	container.appendChild(renderNewProjectButton());
 	return container;
 }
 
@@ -202,7 +209,7 @@ function renderNewTodoOverlay() {
 	priorityButtonsContainer.appendChild(highButton);
 	prioritySection.appendChild(priorityButtonsContainer);
 
-	const okButton = renderFormOkButton();
+	const okButton = renderTodoFormOkButton();
 	
 	window.appendChild(nameSection);
 	window.appendChild(descriptionSection);
@@ -225,7 +232,7 @@ function renderOverlayBackground() {
 	return background;
 }
 
-function renderFormOkButton() {
+function renderTodoFormOkButton() {
 	const button = document.createElement("button");
 	button.id = "ok-button";
 	button.textContent = "OK";
@@ -270,4 +277,55 @@ function renderPriorityButton(name) {
 		}
 	});
 	return btn;
+}
+
+function renderNewProjectButton() {
+	const container = document.createElement("div");
+	container.textContent = "+";
+	container.classList.add("project-sidebar-btn");
+	container.id = "new-project-btn";
+	container.addEventListener("click", () => {
+		console.log("foo");
+		document.body.appendChild(renderNewProjectOverlay());
+	});
+	return container;
+}
+
+function renderNewProjectOverlay() {
+	const container = renderOverlayBackground();
+	const window = document.createElement("div");
+	window.classList.add("new-todo-window");
+
+	const nameSection = document.createElement("div");
+	nameSection.classList.add("form-field-section");
+	const nameLabel = document.createElement("label");
+	nameLabel.textContent = "Project name";
+	nameLabel.htmlFor = "project-name";
+	const nameField = document.createElement("input");
+	nameField.id = "project-name";
+	nameSection.appendChild(nameLabel);
+	nameSection.appendChild(nameField);
+
+	window.appendChild(nameSection);
+	window.appendChild(renderProjectFormOkButton());
+	container.appendChild(window);
+	return container;
+}
+
+function renderProjectFormOkButton() {
+	const button = document.createElement("button");
+	button.id = "ok-button";
+	button.textContent = "OK";
+	button.addEventListener("click", () => {
+		const name = document.getElementById("project-name").value;
+		if(name === "") return;
+		const newProject = new Project(name);
+		Projects.push(newProject);
+		const sidebar = document.getElementById("sidebar");
+		sidebar.removeChild(sidebar.lastChild);
+		sidebar.appendChild(renderSidebarProjectsContainer());
+		const overlay = document.getElementById("overlay-background");
+		overlay.remove();
+	});
+	return button;
 }
