@@ -67,12 +67,16 @@ function renderTodo(todo) {
 export function renderProject(project) {
 	const container = document.createElement("div");
 	container.id = "project-section";
+	const headerSection = document.createElement("div");
+	headerSection.id = "project-header-section";
 	const projectTitle = document.createElement("h1");
 	projectTitle.textContent = project.name;
 	projectTitle.classList.add("project-title");
-	container.appendChild(projectTitle);
 	const newTodoButton = renderNewTodoButton();
-	container.appendChild(newTodoButton);
+	headerSection.appendChild(projectTitle);
+	headerSection.appendChild(newTodoButton);
+	container.appendChild(headerSection);
+	
 	const todosContainer = document.createElement("div");
 	todosContainer.classList.add("todos-container");
 	project.todos.forEach(element => {
@@ -99,6 +103,10 @@ export function renderSidebar() {
 	Projects.array.forEach(project => {
 		projectContainer.appendChild(projectButton(project));
 	});
+	if(projectContainer.children.length > 0)
+	{
+		projectContainer.children[0].classList.add("opened-project");
+	}
 	container.appendChild(projectContainer);
 	return container;
 }
