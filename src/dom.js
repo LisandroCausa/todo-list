@@ -238,8 +238,10 @@ function renderTodoFormOkButton() {
 	button.textContent = "OK";
 	button.addEventListener("click", () => {
 		const name = document.getElementById("name").value;
+		if(name === "") return;
 		const description = document.getElementById("description").value;
 		const dueDateInput = document.getElementById("due-date").valueAsDate;
+		if(dueDateInput === null) return;
 		const dueDate = new Date();
 		dueDate.setHours(0, 0, 0);
 		dueDate.setDate(dueDateInput.getUTCDate());
