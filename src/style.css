@@ -62,13 +62,29 @@ body {
 
 .todo > h3 {
 	margin-right: auto;
+	margin-top: 0;
+	margin-bottom: 0;
+	font-size: 2rem;
 }
 .todo > img {
 	vertical-align: middle;
 }
 
+.todo-description {
+	display: none;
+	font-size: 1.2rem;
+}
+
+.todo.opened-todo > .todo-description {
+	display: block;
+}
+
 .todo.opened-todo {
 	display: block;
+}
+
+.todo.opened-todo > h3 {
+	margin-top: 6px;
 }
 
 .todo.completed {
@@ -206,8 +222,9 @@ body {
 }
 
 .form-field-section > textarea {
-	font-size: 1.1rem;
-	height: 10vh;
+	font-size: 1rem;
+	height: 12vh;
+	resize: none;
 }
 
 #priority-buttons-container {

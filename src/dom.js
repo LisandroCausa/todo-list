@@ -11,7 +11,7 @@ function renderTodo(todo) {
 	title.textContent = todo.title;
 	const description = document.createElement("p");
 	description.textContent = todo.description;
-	description.style.display = "none";
+	description.classList.add("todo-description");
 	const dueDate = document.createElement("p");
 	const dateFormatOptions = { day: "numeric", month: "numeric" };
 	dueDate.textContent = todo.dueDate.toLocaleDateString("en-GB", dateFormatOptions);
@@ -57,10 +57,6 @@ function renderTodo(todo) {
 	}
 	container.addEventListener("click", () => {
 		container.classList.toggle("opened-todo");
-		if(container.classList.contains("opened-todo"))
-			description.style.display = "block";
-		else
-			description.style.display = "none";
 	});
 	return container;
 }
