@@ -1,5 +1,4 @@
-export default function Todo(title, description, dueDate, priority) {
-	let completed = false;
+export default function Todo(title, description, dueDate, priority, completed) {
 	console.log(dueDate);
 	return {
 		title,

@@ -4,6 +4,7 @@ import trashIcon from './img/trash.svg';
 import Todo from './todo';
 import Projects from './projectsModule';
 import Project from './project';
+import storageManager from './storageManager';
 
 function renderTodo(todo) {
 	const container = document.createElement("div");
@@ -17,7 +18,7 @@ function renderTodo(todo) {
 	dueDate.textContent = todo.dueDate.toLocaleDateString("en-GB", dateFormatOptions);
 	dueDate.classList.add("due-date");
 	const checkbox = document.createElement("img");
-	checkbox.src = emptyCheckboxIcon;
+	checkbox.src = todo.completed ? checkedCheckboxIcon : emptyCheckboxIcon;
 	checkbox.classList.add("checkbox-button");
 	checkbox.addEventListener("click", (event) => {
 		event.stopPropagation();
@@ -27,6 +28,7 @@ function renderTodo(todo) {
 			checkbox.src = checkedCheckboxIcon;
 		else
 			checkbox.src = emptyCheckboxIcon;
+		storageManager.saveProject(Projects.currentProject);	
 	});
 	
 	const deleteButton = document.createElement("img");
@@ -83,6 +85,7 @@ export function renderProject(project) {
 		deleteButton.addEventListener("click", () => {
 			project.removeTodo(element);
 			todoDOMElement.remove();
+			storageManager.saveProject(Projects.currentProject);
 		});
 	});
 	container.appendChild(todosContainer);
@@ -251,9 +254,10 @@ function renderTodoFormOkButton() {
 			priority++;
 		}
 
-		const todo = Todo(name, description, dueDate, priority);
+		const todo = Todo(name, description, dueDate, priority, false);
 		console.log(todo);
 		Projects.currentProject.addTodo(todo);
+		storageManager.saveProject(Projects.currentProject);
 		document.body.removeChild(document.getElementById("project-section"));
 		document.body.appendChild(renderProject(Projects.currentProject));
 		const overlay = document.getElementById("overlay-background");

@@ -9,6 +9,7 @@ module.exports = {
 		project: './src/project.js',
 		projectsModule: './src/projectsModule.js',
 		dom: './src/dom.js',
+		storageManager: './src/storageManager.js',
 	},
 	module: {
 	rules: [
