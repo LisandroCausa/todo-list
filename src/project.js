@@ -1,5 +1,4 @@
-export default function Project(name) {
-	const todos = [];
+export default function Project(name, todos) {
 	const addTodo = (newTodo) => {
 		let i = 0;
 		while((i < todos.length) && (getDaysDifference(todos[i].dueDate, newTodo.dueDate) < 0))

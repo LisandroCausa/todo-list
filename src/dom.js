@@ -28,7 +28,7 @@ function renderTodo(todo) {
 			checkbox.src = checkedCheckboxIcon;
 		else
 			checkbox.src = emptyCheckboxIcon;
-		storageManager.saveProject(Projects.currentProject);	
+		storageManager.saveProject(Projects.currentProject, Projects.array.indexOf(Projects.currentProject));	
 	});
 	
 	const deleteButton = document.createElement("img");
@@ -85,7 +85,7 @@ export function renderProject(project) {
 		deleteButton.addEventListener("click", () => {
 			project.removeTodo(element);
 			todoDOMElement.remove();
-			storageManager.saveProject(Projects.currentProject);
+			storageManager.saveProject(Projects.currentProject, Projects.array.indexOf(Projects.currentProject));
 		});
 	});
 	container.appendChild(todosContainer);
@@ -255,9 +255,8 @@ function renderTodoFormOkButton() {
 		}
 
 		const todo = Todo(name, description, dueDate, priority, false);
-		console.log(todo);
 		Projects.currentProject.addTodo(todo);
-		storageManager.saveProject(Projects.currentProject);
+		storageManager.saveProject(Projects.currentProject, Projects.array.indexOf(Projects.currentProject));
 		document.body.removeChild(document.getElementById("project-section"));
 		document.body.appendChild(renderProject(Projects.currentProject));
 		const overlay = document.getElementById("overlay-background");
@@ -320,9 +319,11 @@ function renderProjectFormOkButton() {
 	button.textContent = "OK";
 	button.addEventListener("click", () => {
 		const name = document.getElementById("project-name").value;
-		if(name === "") return;
-		const newProject = new Project(name);
+		if(name === "")
+			return;
+		const newProject = Project(name, []);
 		Projects.push(newProject);
+		storageManager.saveProject(newProject, Projects.array.indexOf(newProject));
 		const sidebar = document.getElementById("sidebar");
 		sidebar.removeChild(sidebar.lastChild);
 		sidebar.appendChild(renderSidebarProjectsContainer());
